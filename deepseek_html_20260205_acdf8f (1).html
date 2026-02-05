@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YoungStudios | Professional Roblox UI Designer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0a1128;
+            --secondary-color: #00eeff;
+            --accent-color: #00ff9d;
+            --text-color: #ffffff;
+            --text-secondary: #a0aec0;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --section-spacing: 80px;
+            --container-width: 1200px;
+            --neon-red: #ff0055;
+            --neon-blue: #00eeff;
+            --neon-purple: #aa00ff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: var(--section-spacing) 0;
+        }
+
+        .dark-bg {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* ===== NEON HOVER EFFECTS ===== */
+        .btn, .nav-link, .service-card, .project-card, .review-card, .stat-badge {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .btn:hover, .nav-link:hover, .service-card:hover, .project-card:hover, .review-card:hover, .stat-badge:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 15px var(--neon-blue), 0 0 25px var(--neon-blue);
+        }
+
+        .service-card:hover {
+            box-shadow: 0 0 15px rgba(0, 238, 255, 0.3), 0 0 25px rgba(0, 238, 255, 0.2);
+            border-color: var(--neon-blue);
+        }
+
+        .project-card:hover {
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.3), 0 0 25px rgba(255, 0, 85, 0.2);
+            border-color: var(--neon-red);
+        }
+
+        .nav-link:hover {
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(10, 17, 40, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--secondary-color);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding-top: 140px;
+            padding-bottom: 80px;
+            text-align: center;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            background-color: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: 12px;
+            min-width: 180px;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-badge h3 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+            font-weight: 700;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-number {
+            display: inline-block;
+            opacity: 1 !important;
+            visibility: visible !important;
+            position: relative !important;
+        }
+
+        .stat-badge p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero-title span {
+            color: var(--secondary-color);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .hero-desc {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title span {
+            color: var(--secondary-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            border: 2px solid transparent;
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(0, 238, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            border: 2px solid transparent;
+        }
+
+        .service-card:hover .service-icon {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+        }
+
+        .service-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .service-list li {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .service-list li:before {
+            content: "•";
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+        }
+
+        /* ===== WHY WORK WITH US ===== */
+        .why-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .why-point {
+            margin-bottom: 40px;
+        }
+
+        .why-point h3 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        .why-point p {
+            color: var(--text-secondary);
+            padding-left: 40px;
+        }
+
+        .why-image {
+            text-align: center;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--primary-color), #1a1f3c);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+        }
+
+        .image-placeholder:hover {
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 20px var(--neon-purple);
+        }
+
+        /* ===== PROJECTS ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .project-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-image .game-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            background-size: cover;
+            background-position: center;
+            border: 3px solid white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-role, .project-stats {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== REVIEWS ===== */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .review-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            border: 2px solid transparent;
+        }
+
+        .review-card:hover {
+            border-color: var(--neon-purple);
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .review-author h4 {
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        /* ===== REVIEWS PAGE GALLERY ===== */
+        .reviews-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .review-image {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            border: 2px solid transparent;
+        }
+
+        .review-image:hover {
+            border-color: var(--neon-blue);
+        }
+
+        .review-image i {
+            font-size: 3rem;
+            color: var(--secondary-color);
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta {
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            color: var(--text-secondary);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .footer-col a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-col a:hover {
+            color: var(--secondary-color);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        /* ===== PAGE CONTENT ===== */
+        .page-content {
+            padding: 140px 0 80px;
+            display: none;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        .page-hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .page-hero p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        /* ===== FORM STYLES ===== */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 50px;
+            border-radius: 20px;
+            border: 2px solid transparent;
+        }
+
+        .form-container:hover {
+            border-color: var(--neon-blue);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        /* FIXED SELECT DROPDOWN */
+        select.form-control {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2300eeff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 12px;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        select.form-control option {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 10px;
+            border: none;
+        }
+
+        select.form-control:focus option:checked {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        /* ===== TABS FOR PAST WORK ===== */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            background-color: transparent;
+            border: 2px solid transparent;
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .tab-button.active {
+            background-color: rgba(0, 238, 255, 0.1);
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+            box-shadow: 0 0 10px rgba(0, 238, 255, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== UI IMAGES GRID ===== */
+        .ui-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .ui-image {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .ui-image:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 238, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .ui-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ui-image-caption {
+            padding: 15px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== WORK IN PROGRESS ===== */
+        .work-in-progress {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            border: 2px solid transparent;
+        }
+
+        .work-in-progress:hover {
+            border-color: var(--neon-purple);
+        }
+
+        .work-in-progress i {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .work-in-progress h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .work-in-progress p {
+            color: var(--text-secondary);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* ===== THIS WEBSITE CARD ===== */
+        .website-card {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            border: 2px solid transparent;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .website-card:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 238, 255, 0.3);
+        }
+
+        .website-card i {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .website-card h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .website-card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .why-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ui-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                padding: 20px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero-stats {
+                gap: 20px;
+            }
+            
+            .stat-badge {
+                min-width: 140px;
+                padding: 15px 20px;
+            }
+            
+            .stat-badge h3 {
+                font-size: 2rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-button {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .services-grid,
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+        }
+
+        /* ===== SMOOTH COUNTER ANIMATION ===== */
+        @keyframes countUp {
+            0% { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .counting {
+            animation: none;
+        }
+
+        /* ===== PRICING NOTES ===== */
+        .pricing-note {
+            background-color: rgba(255, 0, 85, 0.1);
+            border-left: 4px solid var(--neon-red);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .pricing-note i {
+            color: var(--neon-red);
+            margin-right: 8px;
+        }
+
+        /* ===== SOCIAL LINKS ===== */
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--secondary-color);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .roblox-icon {
+            width: 20px;
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M24 12c0 6.627-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0s12 5.373 12 12zm-12 5.75a5.75 5.75 0 1 0 0-11.5 5.75 5.75 0 0 0 0 11.5z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            filter: invert(1);
+        }
+
+        /* ===== TOS PAGE STYLES ===== */
+        .tos-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            line-height: 1.8;
+        }
+
+        .tos-content h2 {
+            color: var(--secondary-color);
+            margin: 30px 0 15px;
+            font-size: 1.5rem;
+        }
+
+        .tos-content h3 {
+            color: var(--text-color);
+            margin: 20px 0 10px;
+            font-size: 1.2rem;
+        }
+
+        .tos-content p {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+
+        .tos-content ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        .tos-content li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container container">
+            <a href="#home" class="logo">Young<span>Studios</span></a>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#ui-design" class="nav-link">UI Design</a>
+                <a href="#scripting" class="nav-link">Luau Scripting</a>
+                <a href="#past-work" class="nav-link">Past Work</a>
+                <a href="#reviews" class="nav-link">Reviews</a>
+                <a href="#get-hired" class="nav-link">Get Hired</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#tos" class="nav-link">TOS</a>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ==================== HOME PAGE ==================== -->
+    <section id="home" class="page-content active">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="container">
+                <div class="hero-stats">
+                    <div class="stat-badge">
+                        <h3><span class="stat-number" id="visitsCounter">0</span>M+</h3>
+                        <p>Total Game Visits</p>
+                    </div>
+                    <div class="stat-badge">
+                        <h3><span class="stat-number" id="clientsCounter">0</span>+</h3>
+                        <p>Happy Clients</p>
+                    </div>
+                    <div class="stat-badge">
+                        <h3><span class="stat-number" id="projectsCounter">0</span>+</h3>
+                        <p>Projects Delivered</p>
+                    </div>
+                </div>
+                <h1 class="hero-title">Young<span>Studios</span></h1>
+                <h2 class="hero-subtitle">Professional Roblox UI Designer & Lua Scripter</h2>
+                <p class="hero-desc">We transform game concepts into engaging player experiences. With expertise in clean UI design and beginning to intermediate scripting, we help developers launch successful titles that reach the front page.</p>
+                <a href="#contact" class="btn btn-primary">Start Your Project <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- What We Offer -->
+        <section class="section services">
+            <div class="container">
+                <h2 class="section-title">What We <span>Offer</span></h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-palette"></i></div>
+                        <h3>UI/UX Design</h3>
+                        <p>Creating intuitive, visually stunning interfaces that enhance gameplay and user retention.</p>
+                        <ul class="service-list">
+                            <li>Interface Design & Prototyping</li>
+                            <li>User Experience Optimization</li>
+                            <li>Icon & Asset Creation</li>
+                            <li>Figma to Roblox Implementation</li>
+                        </ul>
+                        <div class="pricing-note">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <strong>Note:</strong> Importing UI costs more
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-code"></i></div>
+                        <h3>Luau Scripting</h3>
+                        <p>Building combat systems and basic game mechanics with clean, maintainable code.</p>
+                        <ul class="service-list">
+                            <li>Combat Systems Development</li>
+                            <li>Basic Gameplay Mechanics</li>
+                            <li>Bug Fixing & Optimization</li>
+                            <li>Beginner to Intermediate Level</li>
+                        </ul>
+                        <div class="pricing-note">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <strong>Note:</strong> Beginner to Intermediate level only
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-globe"></i></div>
+                        <h3>Website Building</h3>
+                        <p>Creating professional portfolio and studio websites like this one.</p>
+                        <ul class="service-list">
+                            <li>Portfolio Websites</li>
+                            <li>Studio Landing Pages</li>
+                            <li>Custom Design & Development</li>
+                            <li>Only Past Work: This Website</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Work With Us -->
+        <section class="section why-me dark-bg">
+            <div class="container">
+                <h2 class="section-title">Why Work With <span>Us</span></h2>
+                <div class="why-content">
+                    <div class="why-text">
+                        <div class="why-point">
+                            <h3><i class="fas fa-chart-line"></i> Proven Results</h3>
+                            <p>Our work has directly contributed to games accumulating over 6.3 million visits. We focus on creating features that drive real engagement and retention.</p>
+                        </div>
+                        <div class="why-point">
+                            <h3><i class="fas fa-users"></i> Client Satisfaction</h3>
+                            <p>With 120+ satisfied clients, clear communication and understanding your vision is our top priority. We maintain 94% project completion rate.</p>
+                        </div>
+                        <div class="why-point">
+                            <h3><i class="fas fa-bolt"></i> Efficient Workflow</h3>
+                            <p>Structured process: 1) Discussion, 2) Concept, 3) Creation, 4) Revisions, 5) Delivery. This ensures projects stay on track and meet deadlines.</p>
+                        </div>
+                        <div class="why-point">
+                            <h3><i class="fas fa-gamepad"></i> Game Developer Mindset</h3>
+                            <p>As both designers and beginning scripters, we understand how UI and systems work together to create seamless player experiences.</p>
+                        </div>
+                    </div>
+                    <div class="why-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Work -->
+        <section class="section portfolio-preview">
+            <div class="container">
+                <h2 class="section-title">Featured <span>Work</span></h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image" style="background: url('https://tr.rbxcdn.com/180DAY-14611f2d5404109b349a8e1606f87a32/768/432/Image/Webp/noFilter') center/cover;">
+                            <div class="game-icon" style="background-image: url('https://tr.rbxcdn.com/987a9b9a0d70e6fb26f41e2688192af4/150/150/Image/Png');"></div>
+                        </div>
+                        <div class="project-content">
+                            <h3>Celestial Tower Defense</h3>
+                            <p>Contributed to UI design and scripting for this popular tower defense game. Helped implement responsive menus and game systems that enhanced player experience.</p>
+                            <div class="project-meta">
+                                <span class="project-role"><i class="fas fa-user"></i> UI Designer & Scripter</span>
+                                <span class="project-stats"><i class="fas fa-eye"></i> 246K+ Visits</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background: url('https://tr.rbxcdn.com/180DAY-5c886ed9f31c065f404fdf0ef1f80f4e/768/432/Image/Webp/noFilter') center/cover;">
+                            <div class="game-icon" style="background-image: url('https://tr.rbxcdn.com/4b51a11c590920f02d202424545e6c21/150/150/Image/Png');"></div>
+                        </div>
+                        <div class="project-content">
+                            <h3>Soccer Rivals</h3>
+                            <p>UI Designer for this front-page sports sensation. Created intuitive team selection interfaces and match statistics panels that contributed to its 2.1M+ visits.</p>
+                            <div class="project-meta">
+                                <span class="project-role"><i class="fas fa-user"></i> UI Designer</span>
+                                <span class="project-stats"><i class="fas fa-eye"></i> 2.1M+ Visits</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="#past-work" class="btn btn-secondary">View All Projects <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviews Preview -->
+        <section class="section reviews-preview dark-bg">
+            <div class="container">
+                <h2 class="section-title">Client <span>Reviews</span></h2>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="review-text">
+                            <p>"YoungStudios completely transformed our game's interface. Professional, fast, and incredibly talented. After implementing their UI design, our player retention increased by 9%!"</p>
+                        </div>
+                        <div class="review-author">
+                            <h4>Anonymous, Game Director</h4>
+                            <p>Successful RPG Project</p>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-text">
+                            <p>"The UI work was exactly what we needed. Clean, modern, and perfectly matched our game's theme. Will definitely work with again for future projects."</p>
+                        </div>
+                        <div class="review-author">
+                            <h4>Anonymous, Studio Owner</h4>
+                            <p>Simulator Tycoon Project</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="#reviews" class="btn btn-primary">See All Reviews <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section cta">
+            <div class="container">
+                <h2>Ready to Elevate Your Game?</h2>
+                <p>Let's discuss your project and how we can help bring your vision to life with professional UI design and Beginner To Intermediate scripting.</p>
+                <a href="#contact" class="btn btn-primary">Get In Touch <i class="fas fa-paper-plane"></i></a>
+            </div>
+        </section>
+    </section>
+
+    <!-- ==================== UI DESIGN PAGE ==================== -->
+    <section id="ui-design" class="page-content">
+        <div class="container">
+            <div class="page-hero">
+                <h1>UI <span>Design</span></h1>
+                <p>Creating immersive, intuitive interfaces that enhance player experience and drive engagement.</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Our Design <span>Process</span></h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-search"></i></div>
+                        <h3>Research & Discovery</h3>
+                        <p>Understanding your game's genre, target audience, and core mechanics to create UI that feels native to the experience.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-pencil-alt"></i></div>
+                        <h3>Wireframing & Prototyping</h3>
+                        <p>Creating layout concepts and interactive prototypes in Figma to test user flow and functionality before development.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+                        <h3>Visual Design</h3>
+                        <p>Crafting the final aesthetic with attention to color theory, typography, iconography, and visual hierarchy.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-code"></i></div>
+                        <h3>Implementation</h3>
+                        <p>Bringing Figma designs to life in Roblox Studio with optimized assets and responsive layouts.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section dark-bg">
+                <h2 class="section-title">Tools We <span>Use</span></h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3><i class="fab fa-roblox" style="color: var(--secondary-color); margin-right: 10px;"></i> Roblox Studio</h3>
+                        <p>Expert in native Roblox UI system, creating responsive and optimized interfaces.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3><i class="fab fa-figma" style="color: var(--secondary-color); margin-right: 10px;"></i> Figma</h3>
+                        <p>For wireframing, prototyping, and creating comprehensive design systems before implementation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SCRIPTING PAGE ==================== -->
+    <section id="scripting" class="page-content">
+        <div class="container">
+            <div class="page-hero">
+                <h1>Luau <span>Scripting</span></h1>
+                <p>Building combat systems and basic game mechanics with clean, maintainable code.</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Scripting <span>Services</span></h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-fist-raised"></i></div>
+                        <h3>Combat Systems</h3>
+                        <p>Basic to intermediate combat mechanics, hit detection, damage calculation, and ability systems.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-tools"></i></div>
+                        <h3>Bug Fixing</h3>
+                        <p>Identifying and resolving scripting issues, optimizing performance, and improving code stability.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-gamepad"></i></div>
+                        <h3>Basic Game Mechanics</h3>
+                        <p>Simple interactive systems, object manipulation, and core gameplay functionality.</p>
+                    </div>
+                </div>
+                <div class="pricing-note" style="max-width: 800px; margin: 30px auto 0;">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>Important:</strong> We offer Beginner to Intermediate level Luau scripting only. For complex systems or advanced scripting needs, we recommend other specialists.
+                </div>
+            </div>
+            
+            <div class="section dark-bg">
+                <h2 class="section-title">Our Scripting <span>Level</span></h2>
+                <div class="why-content">
+                    <div class="why-text">
+                        <div class="why-point">
+                            <h3><i class="fas fa-star-half-alt"></i> Beginner to Intermediate</h3>
+                            <p>Currently learning and expanding our Luau scripting skills. Capable of implementing basic to intermediate systems with guidance and research.</p>
+                        </div>
+                        <div class="why-point">
+                            <h3><i class="fas fa-book"></i> Continuously Learning</h3>
+                            <p>Actively studying advanced Luau concepts, design patterns, and best practices to improve our scripting capabilities.</p>
+                        </div>
+                        <div class="why-point">
+                            <h3><i class="fas fa-hands-helping"></i> Collaborative Approach</h3>
+                            <p>We work best when collaborating with more experienced scripters or when given clear requirements and reference materials.</p>
+                        </div>
+                    </div>
+                    <div class="why-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PAST WORK PAGE ==================== -->
+    <section id="past-work" class="page-content">
+        <div class="container">
+            <div class="page-hero">
+                <h1>Past <span>Work</span></h1>
+                <p>Browse through our portfolio of completed projects, UI designs, and development work.</p>
+            </div>
+            
+            <!-- Tabs Navigation -->
+            <div class="tabs" id="pastWorkTabs">
+                <button class="tab-button active" data-tab="popular-games">Popular Games I Worked For</button>
+                <button class="tab-button" data-tab="roblox-scripting">Roblox Scripting</button>
+                <button class="tab-button" data-tab="programming">Programming</button>
+                <button class="tab-button" data-tab="ui-work">User Interface Work</button>
+            </div>
+            
+            <!-- Tab 1: Popular Games -->
+            <div class="tab-content active" id="popular-games">
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image" style="background: url('https://tr.rbxcdn.com/180DAY-14611f2d5404109b349a8e1606f87a32/768/432/Image/Webp/noFilter') center/cover;">
+                            <div class="game-icon" style="background-image: url('https://tr.rbxcdn.com/987a9b9a0d70e6fb26f41e2688192af4/150/150/Image/Png');"></div>
+                        </div>
+                        <div class="project-content">
+                            <h3>Celestial Tower Defense</h3>
+                            <p>Contributed to UI/UX design and basic scripting for this popular tower defense game. Helped create intuitive upgrade menus and wave management interfaces.</p>
+                            <div class="project-meta">
+                                <span class="project-role"><i class="fas fa-user"></i> UI Designer & Scripter</span>
+                                <span class="project-stats"><i class="fas fa-eye"></i> 246K+ Visits</span>
+                            </div>
+                            <a href="https://www.roblox.com/games/14409348318/Celestial-Tower-Defense" target="_blank" class="btn btn-secondary" style="margin-top: 15px;">
+                                <i class="fas fa-external-link-alt"></i> Visit Game
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background: url('https://tr.rbxcdn.com/180DAY-5c886ed9f31c065f404fdf0ef1f80f4e/768/432/Image/Webp/noFilter') center/cover;">
+                            <div class="game-icon" style="background-image: url('https://tr.rbxcdn.com/4b51a11c590920f02d202424545e6c21/150/150/Image/Png');"></div>
+                        </div>
+                        <div class="project-content">
+                            <h3>Soccer Rivals</h3>
+                            <p>UI Designer for this front-page sports game. Created team selection interfaces and match statistics panels that contributed to its success.</p>
+                            <div class="project-meta">
+                                <span class="project-role"><i class="fas fa-user"></i> UI Designer</span>
+                                <span class="project-stats"><i class="fas fa-eye"></i> 2.1M+ Visits</span>
+                            </div>
+                            <a href="https://www.roblox.com/games/121282449603089/Soccer-Rivals" target="_blank" class="btn btn-secondary" style="margin-top: 15px;">
+                                <i class="fas fa-external-link-alt"></i> Visit Game
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background: url('https://tr.rbxcdn.com/180DAY-e8783bf5e4f7b1bb952c57bbc8bf0c31/768/432/Image/Webp/noFilter') center/cover;">
+                            <div class="game-icon" style="background-image: url('https://tr.rbxcdn.com/45abff6ec265cbe6a4f43fe9ce2203a7/150/150/Image/Png');"></div>
+                        </div>
+                        <div class="project-content">
+                            <h3>Balkan Donate</h3>
+                            <p>Designed intuitive donation interfaces and progression systems for this popular game with over 1.8 million visits.</p>
+                            <div class="project-meta">
+                                <span class="project-role"><i class="fas fa-user"></i> UI Designer</span>
+                                <span class="project-stats"><i class="fas fa-eye"></i> 1.8M+ Visits</span>
+                            </div>
+                            <a href="https://www.roblox.com/games/17247995332/Balkan-Donate" target="_blank" class="btn btn-secondary" style="margin-top: 15px;">
+                                <i class="fas fa-external-link-alt"></i> Visit Game
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-3">
+                    <div class="stat-badge" style="display: inline-block; background-color: rgba(0, 238, 255, 0.1);">
+                        <h3>6.3M+</h3>
+                        <p>Across Counted Projects (Successful ones)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 2: Roblox Scripting -->
+            <div class="tab-content" id="roblox-scripting">
+                <div class="work-in-progress">
+                    <i class="fas fa-code"></i>
+                    <h3>No Past Work yet*</h3>
+                    <p>Working on clean combat system</p>
+                </div>
+            </div>
+            
+            <!-- Tab 3: Programming -->
+            <div class="tab-content" id="programming">
+                <div class="website-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>This Website*</h3>
+                    <p>The website that you are currently visiting</p>
+                    <p>Built with HTML5, CSS3, and JavaScript. Features a responsive design, smooth animations, and interactive tabs.</p>
+                    <div class="pricing-note" style="margin-top: 20px;">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Note:</strong> This is our only website development project to date.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 4: User Interface Work -->
+            <div class="tab-content" id="ui-work">
+                <div class="ui-grid">
+                    <div class="ui-image">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058772424196300/Screenshot_2026-02-02_20.39.15.png?ex=69864719&is=6984f599&hm=023d984913f2b48f24239fd0cc0c352637780f647114ce73d118df173655be5c&=&format=webp&quality=lossless" alt="UI Design 1">
+                        <div class="ui-image-caption">Modern UI Dashboard Design</div>
+                    </div>
+                    <div class="ui-image">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058773120188416/Screenshot_2026-01-29_17.58.51.png?ex=69864719&is=6984f599&hm=2c5de775a059c7fdc8f9fbfd066c464c456074123fb4706b0c7146bad148a356&=&format=webp&quality=lossless" alt="UI Design 2">
+                        <div class="ui-image-caption">Game Interface Mockup</div>
+                    </div>
+                    <div class="ui-image">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058772126138603/Screenshot_2026-02-02_20.40.16.png?ex=69864719&is=6984f599&hm=24a25e63c9df788be00c7a676a6f6c05f7b99c13b8ca049ebb5ebf876200a460&=&format=webp&quality=lossless" alt="UI Design 3">
+                        <div class="ui-image-caption">Character Selection Screen</div>
+                    </div>
+                    <div class="ui-image">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058773460189194/Screenshot_2026-01-22_08.12.22.png?ex=69864719&is=6984f599&hm=1f09abb9519155ddc6d81ec64ed829a9dbe523bdc8c4a82c527d9b2520a09b74&=&format=webp&quality=lossless" alt="UI Design 4">
+                        <div class="ui-image-caption">Inventory System UI</div>
+                    </div>
+                    <div class="ui-image">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058773766377617/Schermafbeelding_2026-01-18_214202.webp?ex=69864719&is=6984f599&hm=633912372169ffa21151259055fbc1890102556932ffdb6006323cddcc43d304&=&format=webp" alt="UI Design 5">
+                        <div class="ui-image-caption">Settings Menu Design</div>
+                    </div>
+                    <div class="ui-image">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058774353444955/image.webp?ex=69864719&is=6984f599&hm=b56a21498c27d320e190956f67d1364322f1fe4198401bfae34db83df6a7ec3e&=&format=webp" alt="UI Design 6">
+                        <div class="ui-image-caption">Mobile Game Interface</div>
+                    </div>
+                    <div class="ui-image">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469060225788149882/Screenshot_2026-01-13_23.24.30.png?ex=69864873&is=6984f6f3&hm=59b91b39e0a6992b5a5abcdcd8c7fa9ca980410bc9971f310764e9de113f0054&=&format=webp&quality=lossless" alt="UI Design 7">
+                        <div class="ui-image-caption">HUD Design for Action Game</div>
+                    </div>
+                    <div class="ui-image">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469060227231121590/Screenshot_2026-01-10_02.23.17_1.png?ex=69864873&is=6984f6f3&hm=ae61ccd5ec564574594eac9e2057cb4eb5ebc4ff02f23ed348e489ae8847a16b&=&format=webp&quality=lossless" alt="UI Design 8">
+                        <div class="ui-image-caption">Main Menu Concept</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== REVIEWS PAGE ==================== -->
+    <section id="reviews" class="page-content">
+        <div class="container">
+            <div class="page-hero">
+                <h1>Client <span>Reviews</span></h1>
+                <p>What our clients say about our UI design work. All reviews are from real clients.</p>
+            </div>
+            
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-text">
+                        <p>"YoungStudios completely transformed our game's interface. Professional, fast, and incredibly talented. After implementing their UI design, our player retention increased by 9%!"</p>
+                    </div>
+                    <div class="review-author">
+                        <h4>Anonymous, Game Director</h4>
+                        <p>Successful RPG Project</p>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-text">
+                        <p>"The UI work was exactly what we needed. Clean, modern, and perfectly matched our game's theme. Will definitely work with again for future projects."</p>
+                    </div>
+                    <div class="review-author">
+                        <h4>Anonymous, Studio Owner</h4>
+                        <p>Simulator Tycoon Project</p>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-text">
+                        <p>"Excellent communication and delivered exactly what was promised. The UI looks fantastic and players love it. Highly recommended!"</p>
+                    </div>
+                    <div class="review-author">
+                        <h4>Anonymous, Developer</h4>
+                        <p>Battle Royale Game</p>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-text">
+                        <p>"Worked with YoungStudios on multiple projects. Always delivers high-quality UI work on time. Very professional and easy to work with."</p>
+                    </div>
+                    <div class="review-author">
+                        <h4>Anonymous, Project Manager</h4>
+                        <p>Multiple Games</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">To Add Your <span>Review Here</span></h2>
+                <div class="service-card">
+                    <h3><i class="fas fa-edit" style="color: var(--secondary-color); margin-right: 10px;"></i> How to Submit Your Review</h3>
+                    <p>Want your review featured here? Here's how:</p>
+                    <ol class="service-list" style="margin-top: 15px;">
+                        <li><strong>Commission or Hire YoungStudios for a project</strong></li>
+                        <li><strong>Write a Review</strong> about your experience working with us</li>
+                        <li><strong>Ask the person you contacted/Hired to post this</strong> into the reviews section</li>
+                    </ol>
+                    <div class="pricing-note" style="margin-top: 20px;">
+                        <i class="fas fa-info-circle"></i>
+                        All reviews are verified and come from actual clients who have worked with YoungStudios.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== GET HIRED PAGE ==================== -->
+    <section id="get-hired" class="page-content">
+        <div class="container">
+            <div class="page-hero">
+                <h1>Get Hired To <span>YoungStudios</span></h1>
+                <p>Ready to start your Career? Let's discuss how we can help bring Clients their vision to life.</p>
+            </div>
+            
+            <div class="form-container">
+                <h2 style="text-align: center; margin-bottom: 30px;">Start Your Career</h2>
+                
+                <div class="form-group">
+                    <label class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="careerName" placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="careerEmail" placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Development Type</label>
+                    <select class="form-control" id="developmentType">
+                        <option>Website</option>
+                        <option>Roblox UI</option>
+                        <option>Roblox Scripting</option>
+                        <option>Project Manager</option>
+                        <option>Content Creator</option>
+                        <option>Advertiser</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">About You</label>
+                    <textarea class="form-control" id="aboutYou" rows="8" placeholder="Tell Us About yourself, what you do and how you can benefit our clients... Also Note Games you have worked with. And anything else we have to know..."></textarea>
+                </div>
+                
+                <button class="btn btn-primary" style="width: 100%;" onclick="submitCareerForm()">
+                    Submit Application <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT PAGE ==================== -->
+    <section id="contact" class="page-content">
+        <div class="container">
+            <div class="page-hero">
+                <h1>Get In <span>Touch</span></h1>
+                <p>Ready to start your project? Let's discuss how we can help bring your vision to life.</p>
+            </div>
+            
+            <div class="form-container">
+                <h2 style="text-align: center; margin-bottom: 30px;">Start Your Project</h2>
+                
+                <div class="form-group">
+                    <label class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="contactName" placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="contactEmail" placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Project Type</label>
+                    <select class="form-control" id="projectType">
+                        <option>UI Design Project</option>
+                        <option>Scripting Commission</option>
+                        <option>Project Managing</option>
+                        <option>Bug Fixing</option>
+                        <option>Website Building</option>
+                        <option>Consultation</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Project Details</label>
+                    <textarea class="form-control" id="projectDetails" rows="6" placeholder="Tell me about your project, timeline, and any specific requirements..."></textarea>
+                </div>
+                
+                <button class="btn btn-primary" style="width: 100%;" onclick="submitContactForm()">
+                    Send Message <i class="fas fa-paper-plane"></i>
+                </button>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <h3 style="margin-bottom: 20px;">Direct Contact</h3>
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                        <a href="https://twitter.com/rlyoung0" target="_blank" class="social-link">
+                            <i class="fab fa-twitter"></i> @rlyoung0
+                        </a>
+                        <a href="https://discord.com/users/rlyoung0" target="_blank" class="social-link">
+                            <i class="fab fa-discord"></i> rlyoung0
+                        </a>
+                        <a href="https://www.roblox.com/users/8088679999/profile?friendshipSourceType=PlayerSearch" target="_blank" class="social-link">
+                            <div class="roblox-icon"></div> rlyoung0
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TOS PAGE ==================== -->
+    <section id="tos" class="page-content">
+        <div class="container">
+            <div class="page-hero">
+                <h1>Terms of <span>Service</span></h1>
+                <p>Please read these terms carefully before working with YoungStudios.</p>
+            </div>
+            
+            <div class="tos-content">
+                <h2>1. Agreement to Terms</h2>
+                <p>By commissioning or hiring YoungStudios for any project, you agree to be bound by these Terms of Service.</p>
+                
+                <h2>2. Project Terms</h2>
+                <h3>2.1 Project Scope</h3>
+                <p>All projects will have a clearly defined scope discussed and agreed upon before work begins. Any changes to the scope may result in additional fees.</p>
+                
+                <h3>2.2 Payment Terms</h3>
+                <p>Payment terms will be agreed upon before work begins. Typically, 50% upfront and 50% upon completion unless otherwise specified.</p>
+                
+                <h3>2.3 Revision Policy</h3>
+                <p>We include [number] revisions in our standard pricing. Additional revisions may incur extra charges.</p>
+                
+                <h2>3. Intellectual Property</h2>
+                <p>Upon full payment, all rights to the completed work will be transferred to the client, except where otherwise specified in writing.</p>
+                
+                <h2>4. Cancellation Policy</h2>
+                <h3>4.1 Client Cancellation</h3>
+                <p>Clients may cancel a project at any time. Work completed up to the cancellation point will be billed at our hourly rate.</p>
+                
+                <h3>4.2 Our Cancellation Rights</h3>
+                <p>YoungStudios reserves the right to stop any project at any time for any reason, including but not limited to:</p>
+                <ul>
+                    <li>Non-payment or late payment</li>
+                    <li>Harassment or unprofessional behavior</li>
+                    <li>Scope creep beyond agreed parameters</li>
+                    <li>Violation of Roblox Terms of Service</li>
+                </ul>
+                <p>In such cases, work completed will be billed at our hourly rate, and any prepaid amounts for incomplete work may be refunded at our discretion.</p>
+                
+                <h2>5. Limitation of Liability</h2>
+                <p>YoungStudios shall not be liable for any indirect, special, incidental, or consequential damages arising out of our services.</p>
+                
+                <h2>6. Changes to Terms</h2>
+                <p>We reserve the right to modify these terms at any time. Continued work with us after changes constitutes acceptance of the new terms.</p>
+                
+                <h2>7. Contact Information</h2>
+                <p>For any questions about these Terms of Service, please contact us at:</p>
+                <p>Email: northchicagorp0@gmail.com</p>
+                <p>Discord: rlyoung0</p>
+                <p>Roblox: rlyoung0</p>
+                
+                <p style="margin-top: 30px; font-style: italic;">Last Updated: February 2026</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="#home" class="logo">Young<span>Studios</span></a>
+                    <p>Professional Roblox UI Designer & Beginning Lua Scripter. Creating experiences that players love and developers trust.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <a href="#ui-design">UI/UX Design</a>
+                    <a href="#scripting">Luau Scripting</a>
+                    <a href="#past-work">Past Work</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="https://twitter.com/rlyoung0" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="https://discord.com/users/rlyoung0" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+                    <a href="https://www.roblox.com/users/8088679999/profile?friendshipSourceType=PlayerSearch" target="_blank"><div class="roblox-icon" style="display: inline-block; margin-right: 8px;"></div> Roblox</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#get-hired">Get Hired</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#tos">TOS</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 YoungStudios. All rights reserved. Website Built/Made By Owner Discord Rlyoung0 Roblox Rlyoung0 (YngDevs) Company owner</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ================ DOM ELEMENTS ================
+        const navMenu = document.getElementById('navMenu');
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pageContents = document.querySelectorAll('.page-content');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // ================ INITIALIZATION ================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up navigation
+            setupNavigation();
+            
+            // Set up tabs for past work
+            setupTabs();
+            
+            // Start PERFECT counter animations
+            animateCountersPerfect();
+            
+            // Set initial active page from URL hash
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                showPage(hash);
+                updateNavLinks(hash);
+            }
+        });
+
+        // ================ TABS FUNCTIONALITY ================
+        function setupTabs() {
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Hide all tab contents
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Show selected tab content
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        }
+
+        // ================ NAVIGATION FUNCTIONS ================
+        function setupNavigation() {
+            // Mobile menu toggle
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // Navigation link clicks
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    
+                    // Close mobile menu if open
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                    }
+                    
+                    // Show target page
+                    showPage(targetId);
+                    
+                    // Update active nav link
+                    updateNavLinks(targetId);
+                });
+            });
+            
+            // Handle browser back/forward buttons
+            window.addEventListener('hashchange', function() {
+                const pageId = window.location.hash.substring(1) || 'home';
+                showPage(pageId);
+                updateNavLinks(pageId);
+            });
+        }
+
+        function showPage(pageId) {
+            // Hide all pages
+            pageContents.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show target page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo(0, 0);
+                
+                // Update URL
+                window.location.hash = pageId;
+                
+                // Update page title
+                const pageTitles = {
+                    'home': 'YoungStudios | Professional Roblox UI Designer',
+                    'ui-design': 'UI Design Portfolio | YoungStudios',
+                    'scripting': 'Luau Scripting Services | YoungStudios',
+                    'past-work': 'Past Work & Projects | YoungStudios',
+                    'reviews': 'Client Reviews | YoungStudios',
+                    'get-hired': 'Get Hired | YoungStudios',
+                    'contact': 'Contact | YoungStudios',
+                    'tos': 'Terms of Service | YoungStudios'
+                };
+                document.title = pageTitles[pageId] || 'YoungStudios';
+            }
+        }
+
+        function updateNavLinks(activePageId) {
+            navLinks.forEach(link => {
+                const linkPageId = link.getAttribute('href').substring(1);
+                if (linkPageId === activePageId) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // ================ PERFECT COUNTER ANIMATION ================
+        function animateCountersPerfect() {
+            // Set initial values immediately (no animation)
+            document.getElementById('visitsCounter').textContent = '6.3';
+            document.getElementById('clientsCounter').textContent = '120';
+            document.getElementById('projectsCounter').textContent = '43';
+            
+            // Wait a tiny bit then do smooth animation
+            setTimeout(() => {
+                const counters = [
+                    { element: document.getElementById('visitsCounter'), target: 6.3, duration: 2500 },
+                    { element: document.getElementById('clientsCounter'), target: 120, duration: 2000 },
+                    { element: document.getElementById('projectsCounter'), target: 43, duration: 1800 }
+                ];
+                
+                counters.forEach(counter => {
+                    if (!counter.element) return;
+                    
+                    let startTime = null;
+                    const startValue = 0;
+                    const targetValue = counter.target;
+                    const duration = counter.duration;
+                    
+                    function animateCounter(timestamp) {
+                        if (!startTime) startTime = timestamp;
+                        const elapsed = timestamp - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        
+                        // EaseOutCubic for smooth animation
+                        const easeProgress = 1 - Math.pow(1 - progress, 3);
+                        
+                        let currentValue;
+                        if (counter === counters[0]) { // visits (decimal)
+                            currentValue = (startValue + (targetValue - startValue) * easeProgress).toFixed(1);
+                            if (currentValue.endsWith('.0')) {
+                                currentValue = Math.floor(currentValue);
+                            }
+                        } else { // whole numbers
+                            currentValue = Math.floor(startValue + (targetValue - startValue) * easeProgress);
+                        }
+                        
+                        counter.element.textContent = currentValue;
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(animateCounter);
+                        } else {
+                            // Final value
+                            if (counter === counters[0]) {
+                                counter.element.textContent = targetValue.toFixed(1);
+                                if (counter.element.textContent.endsWith('.0')) {
+                                    counter.element.textContent = Math.floor(targetValue);
+                                }
+                            } else {
+                                counter.element.textContent = Math.floor(targetValue);
+                            }
+                        }
+                    }
+                    
+                    requestAnimationFrame(animateCounter);
+                });
+            }, 300);
+        }
+
+        // ================ CONTACT FORM ================
+        function submitContactForm() {
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const type = document.getElementById('projectType').value;
+            const details = document.getElementById('projectDetails').value;
+            
+            if (!name || !email || !details) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Create email body
+            const subject = encodeURIComponent(`Project Inquiry: ${type} - ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nProject Type: ${type}\n\nProject Details:\n${details}\n\n---\nSent from YoungStudios Portfolio`);
+            
+            // Redirect to email client
+            window.location.href = `mailto:northchicagorp0@gmail.com?subject=${subject}&body=${body}`;
+        }
+
+        // ================ CAREER FORM ================
+        function submitCareerForm() {
+            const name = document.getElementById('careerName').value;
+            const email = document.getElementById('careerEmail').value;
+            const type = document.getElementById('developmentType').value;
+            const about = document.getElementById('aboutYou').value;
+            
+            if (!name || !email || !about) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Create email body
+            const subject = encodeURIComponent(`Career Application: ${type} - ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nDevelopment Type: ${type}\n\nAbout You:\n${about}\n\n---\nSent from YoungStudios Get Hired Form`);
+            
+            // Redirect to email client
+            window.location.href = `mailto:northchicagorp0@gmail.com?subject=${subject}&body=${body}`;
+        }
+
+        // ================ HOVER EFFECTS ================
+        document.addEventListener('mouseover', function(e) {
+            // Add hover class to interactive elements
+            if (e.target.classList.contains('btn') || 
+                e.target.classList.contains('nav-link') ||
+                e.target.classList.contains('service-card') ||
+                e.target.classList.contains('project-card') ||
+                e.target.classList.contains('review-card') ||
+                e.target.classList.contains('stat-badge')) {
+                e.target.classList.add('hover-effect');
+            }
+        });
+
+        document.addEventListener('mouseout', function(e) {
+            // Remove hover class
+            if (e.target.classList.contains('hover-effect')) {
+                e.target.classList.remove('hover-effect');
+            }
+        });
+    </script>
+</body>
+</html>
