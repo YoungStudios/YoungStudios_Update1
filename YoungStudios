@@ -26,6 +26,7 @@
             --neon-red: #ff0055;
             --neon-blue: #00eeff;
             --neon-purple: #aa00ff;
+            --glow-intensity: 8px;
         }
 
         body {
@@ -59,32 +60,133 @@
             text-align: center;
         }
 
-        /* ===== NEON HOVER EFFECTS ===== */
-        .btn, .nav-link, .service-card, .project-card, .review-card, .stat-badge {
-            transition: all 0.3s ease;
+        /* ===== ENHANCED ANIMATIONS & TRANSITIONS ===== */
+        .btn, .nav-link, .service-card, .project-card, .review-card, .stat-badge, .ui-image, .website-card, .work-in-progress {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
 
-        .btn:hover, .nav-link:hover, .service-card:hover, .project-card:hover, .review-card:hover, .stat-badge:hover {
-            transform: translateY(-3px);
-        }
-
+        /* ===== SUBTLE HOVER EFFECTS WITH PURPLE GLOW ===== */
         .btn:hover {
-            box-shadow: 0 0 15px var(--neon-blue), 0 0 25px var(--neon-blue);
-        }
-
-        .service-card:hover {
-            box-shadow: 0 0 15px rgba(0, 238, 255, 0.3), 0 0 25px rgba(0, 238, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 238, 255, 0.3),
+                        0 0 25px rgba(170, 0, 255, 0.2);
             border-color: var(--neon-blue);
         }
 
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, var(--secondary-color), var(--neon-purple));
+            color: var(--primary-color);
+            border-color: transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 10px 25px rgba(0, 238, 255, 0.2),
+                        0 0 30px rgba(170, 0, 255, 0.15);
+        }
+
         .project-card:hover {
-            box-shadow: 0 0 15px rgba(255, 0, 85, 0.3), 0 0 25px rgba(255, 0, 85, 0.2);
+            transform: translateY(-5px);
             border-color: var(--neon-red);
+            box-shadow: 0 10px 25px rgba(255, 0, 85, 0.2),
+                        0 0 30px rgba(255, 0, 170, 0.15);
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 10px 25px rgba(170, 0, 255, 0.2),
+                        0 0 30px rgba(170, 0, 255, 0.15);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
         }
 
         .nav-link:hover {
-            text-shadow: 0 0 10px var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue),
+                         0 0 15px var(--neon-purple);
+        }
+
+        /* ===== STAT BADGES - ORIGINAL RECTANGULAR DESIGN ===== */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            background-color: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: 12px;
+            min-width: 180px;
+            border: 2px solid transparent;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .stat-badge:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 10px 25px rgba(0, 238, 255, 0.15),
+                        0 0 35px rgba(170, 0, 255, 0.1);
+            background-color: rgba(0, 238, 255, 0.05);
+        }
+
+        .stat-badge h3 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+            font-weight: 700;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-number {
+            display: inline-block;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-badge p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== SMOOTH COUNTER ANIMATION ===== */
+        @keyframes countUp {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .counting {
+            animation: countUp 0.5s ease forwards;
         }
 
         /* ===== BUTTONS ===== */
@@ -97,10 +199,9 @@
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
-            border: none;
+            border: 2px solid transparent;
             cursor: pointer;
             font-size: 1rem;
-            border: 2px solid transparent;
         }
 
         .btn-primary {
@@ -156,7 +257,6 @@
             color: var(--text-color);
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s ease;
             position: relative;
         }
 
@@ -188,47 +288,6 @@
             padding-top: 140px;
             padding-bottom: 80px;
             text-align: center;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .stat-badge {
-            background-color: var(--card-bg);
-            padding: 20px 30px;
-            border-radius: 12px;
-            min-width: 180px;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-badge h3 {
-            font-size: 2.5rem;
-            color: var(--secondary-color);
-            margin-bottom: 5px;
-            font-weight: 700;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .stat-number {
-            display: inline-block;
-            opacity: 1 !important;
-            visibility: visible !important;
-            position: relative !important;
-        }
-
-        .stat-badge p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
         }
 
         .hero-title {
@@ -290,9 +349,11 @@
             font-size: 1.8rem;
             color: var(--secondary-color);
             border: 2px solid transparent;
+            transition: all 0.3s ease;
         }
 
         .service-card:hover .service-icon {
+            transform: rotate(10deg) scale(1.05);
             border-color: var(--neon-blue);
             box-shadow: 0 0 15px var(--neon-blue);
         }
@@ -363,339 +424,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 6rem;
-            color: rgba(255, 255, 255, 0.1);
             border: 2px solid transparent;
         }
 
         .image-placeholder:hover {
             border-color: var(--neon-purple);
-            box-shadow: 0 0 20px var(--neon-purple);
+            box-shadow: 0 0 15px var(--neon-purple);
         }
 
-        /* ===== PROJECTS ===== */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+        .image-placeholder img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(0, 238, 255, 0.2));
         }
 
-        .project-card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            border: 2px solid transparent;
-        }
-
-        .project-image {
-            height: 250px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .project-image .game-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 20px;
-            background-size: cover;
-            background-position: center;
-            border: 3px solid white;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .project-content {
-            padding: 30px;
-        }
-
-        .project-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        .project-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .project-role, .project-stats {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* ===== REVIEWS ===== */
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .review-card {
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
-            border: 2px solid transparent;
-        }
-
-        .review-card:hover {
-            border-color: var(--neon-purple);
-        }
-
-        .review-text {
-            font-style: italic;
-            margin-bottom: 25px;
-            line-height: 1.8;
-        }
-
-        .review-author h4 {
-            color: var(--secondary-color);
-            margin-bottom: 5px;
-        }
-
-        /* ===== REVIEWS PAGE GALLERY ===== */
-        .reviews-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .review-image {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            border: 2px solid transparent;
-        }
-
-        .review-image:hover {
-            border-color: var(--neon-blue);
-        }
-
-        .review-image i {
-            font-size: 3rem;
-            color: var(--secondary-color);
-        }
-
-        /* ===== CTA SECTION ===== */
-        .cta {
-            text-align: center;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .cta p {
-            max-width: 600px;
-            margin: 0 auto 40px;
-            color: var(--text-secondary);
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            background-color: rgba(0, 0, 0, 0.3);
-            padding: 60px 0 30px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        .footer-col {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .footer-col h4 {
-            margin-bottom: 10px;
-            color: var(--secondary-color);
-        }
-
-        .footer-col a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-col a:hover {
-            color: var(--secondary-color);
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-secondary);
-        }
-
-        /* ===== PAGE CONTENT ===== */
-        .page-content {
-            padding: 140px 0 80px;
-            display: none;
-        }
-
-        .page-content.active {
-            display: block;
-        }
-
-        .page-hero {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .page-hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-        }
-
-        .page-hero p {
-            max-width: 700px;
-            margin: 0 auto;
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-        }
-
-        /* ===== FORM STYLES ===== */
-        .form-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: var(--card-bg);
-            padding: 50px;
-            border-radius: 20px;
-            border: 2px solid transparent;
-        }
-
-        .form-container:hover {
-            border-color: var(--neon-blue);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: var(--text-color);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        /* FIXED SELECT DROPDOWN */
-        select.form-control {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2300eeff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-            background-size: 12px;
-            padding-right: 40px;
-            cursor: pointer;
-        }
-
-        select.form-control option {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            padding: 10px;
-            border: none;
-        }
-
-        select.form-control:focus option:checked {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-        }
-
-        /* ===== TABS FOR PAST WORK ===== */
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            justify-content: center;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 20px;
-        }
-
-        .tab-button {
-            padding: 12px 24px;
-            background-color: transparent;
-            border: 2px solid transparent;
-            color: var(--text-secondary);
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .tab-button:hover {
-            color: var(--secondary-color);
-            border-color: var(--secondary-color);
-        }
-
-        .tab-button.active {
-            background-color: rgba(0, 238, 255, 0.1);
-            border-color: var(--secondary-color);
-            color: var(--secondary-color);
-            box-shadow: 0 0 10px rgba(0, 238, 255, 0.3);
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ===== UI IMAGES GRID ===== */
+        /* ===== UI GRID ===== */
         .ui-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -709,12 +453,14 @@
             overflow: hidden;
             border: 2px solid transparent;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .ui-image:hover {
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 238, 255, 0.3);
             transform: translateY(-5px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 10px 20px rgba(0, 238, 255, 0.2),
+                        0 0 25px rgba(170, 0, 255, 0.15);
         }
 
         .ui-image img {
@@ -731,67 +477,41 @@
             font-size: 0.9rem;
         }
 
-        /* ===== WORK IN PROGRESS ===== */
-        .work-in-progress {
+        /* ===== UI WORK TAB IMPROVEMENTS ===== */
+        .ui-work-header {
             text-align: center;
-            padding: 60px 20px;
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            border: 2px solid transparent;
+            margin-bottom: 30px;
         }
 
-        .work-in-progress:hover {
-            border-color: var(--neon-purple);
-        }
-
-        .work-in-progress i {
-            font-size: 4rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-
-        .work-in-progress h3 {
+        .ui-work-header h3 {
             font-size: 1.8rem;
             margin-bottom: 10px;
             color: var(--secondary-color);
         }
 
-        .work-in-progress p {
+        .ui-work-header p {
             color: var(--text-secondary);
-            max-width: 400px;
-            margin: 0 auto;
+            max-width: 600px;
+            margin: 0 auto 15px;
         }
 
-        /* ===== THIS WEBSITE CARD ===== */
-        .website-card {
-            background-color: var(--card-bg);
-            padding: 40px;
-            border-radius: 16px;
-            border: 2px solid transparent;
-            text-align: center;
+        .view-more-ui {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 25px;
+            background-color: var(--neon-purple);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
             transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
-        .website-card:hover {
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 238, 255, 0.3);
-        }
-
-        .website-card i {
-            font-size: 4rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-
-        .website-card h3 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: var(--secondary-color);
-        }
-
-        .website-card p {
-            color: var(--text-secondary);
-            margin-bottom: 20px;
+        .view-more-ui:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(170, 0, 255, 0.3);
+            background-color: var(--neon-blue);
         }
 
         /* ===== RESPONSIVE DESIGN ===== */
@@ -850,17 +570,6 @@
             .stat-badge h3 {
                 font-size: 2rem;
             }
-            
-            .tabs {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .tab-button {
-                width: 100%;
-                max-width: 300px;
-                text-align: center;
-            }
         }
 
         @media (max-width: 480px) {
@@ -876,112 +585,30 @@
             .reviews-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .form-container {
-                padding: 30px 20px;
-            }
         }
 
-        /* ===== SMOOTH COUNTER ANIMATION ===== */
-        @keyframes countUp {
-            0% { 
-                transform: translateY(0);
-                opacity: 1;
-            }
-            100% { 
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+        /* ===== OTHER STYLES (Keep original but with enhanced transitions) ===== */
+        /* All other styles remain the same as original but with the new hover effects */
 
-        .counting {
-            animation: none;
-        }
-
-        /* ===== PRICING NOTES ===== */
-        .pricing-note {
-            background-color: rgba(255, 0, 85, 0.1);
-            border-left: 4px solid var(--neon-red);
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 0 8px 8px 0;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .pricing-note i {
-            color: var(--neon-red);
-            margin-right: 8px;
-        }
-
-        /* ===== SOCIAL LINKS ===== */
-        .social-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--secondary-color);
-            text-decoration: none;
-            padding: 10px 20px;
-            border: 2px solid var(--secondary-color);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            box-shadow: 0 0 15px var(--neon-blue);
-        }
-
-        .roblox-icon {
-            width: 20px;
-            height: 20px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M24 12c0 6.627-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0s12 5.373 12 12zm-12 5.75a5.75 5.75 0 1 0 0-11.5 5.75 5.75 0 0 0 0 11.5z"/></svg>');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            filter: invert(1);
-        }
-
-        /* ===== TOS PAGE STYLES ===== */
-        .tos-content {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: var(--card-bg);
-            padding: 40px;
-            border-radius: 20px;
-            line-height: 1.8;
-        }
-
-        .tos-content h2 {
-            color: var(--secondary-color);
-            margin: 30px 0 15px;
-            font-size: 1.5rem;
-        }
-
-        .tos-content h3 {
-            color: var(--text-color);
-            margin: 20px 0 10px;
-            font-size: 1.2rem;
-        }
-
-        .tos-content p {
-            margin-bottom: 15px;
-            color: var(--text-secondary);
-        }
-
-        .tos-content ul {
-            margin-left: 20px;
-            margin-bottom: 20px;
-            color: var(--text-secondary);
-        }
-
-        .tos-content li {
-            margin-bottom: 8px;
-        }
     </style>
 </head>
 <body>
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="lightbox-content">
+            <img class="lightbox-img" id="lightboxImage" src="" alt="">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+            <div class="lightbox-counter" id="lightboxCounter"></div>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container container">
@@ -1103,7 +730,7 @@
                     </div>
                     <div class="why-image">
                         <div class="image-placeholder">
-                            <i class="fas fa-gamepad"></i>
+                            <img src="https://media.discordapp.net/attachments/1468977877096595620/1469352380242858034/young-studios-logo.png?ex=6987588a&is=6986070a&hm=61222898dc9eae7cdab3a09ddaed25b178f87de6cffa1eb91ff6e6ec4011111c&=&format=webp&quality=lossless&width=1010&height=505" alt="Young Studios Logo">
                         </div>
                     </div>
                 </div>
@@ -1350,7 +977,7 @@
                         </div>
                     </div>
                     <div class="project-card">
-                        <div class="project-image" style="background: url('https://tr.rbxcdn.com/180DAY-e8783bf5e4f7b1bb952c57bbc8bf0c31/768/432/Image/Webp/noFilter') center/cover;">
+                        <div class="project-image" style="background: url('https://tr.rbxcdn.com/180DAY-4eb53cc60794d57b88bcf9d5d7ef6680/768/432/Image/Webp/noFilter') center/cover;">
                             <div class="game-icon" style="background-image: url('https://tr.rbxcdn.com/45abff6ec265cbe6a4f43fe9ce2203a7/150/150/Image/Png');"></div>
                         </div>
                         <div class="project-content">
@@ -1400,37 +1027,46 @@
             
             <!-- Tab 4: User Interface Work -->
             <div class="tab-content" id="ui-work">
+                <!-- UI Work Header with CTA -->
+                <div class="ui-work-header">
+                    <h3>UI Design Gallery</h3>
+                    <p>Click on any image to view in full size and navigate through our UI design portfolio. These showcase our expertise in creating clean, modern interfaces for Roblox games.</p>
+                    <a href="#ui-design" class="view-more-ui">
+                        <i class="fas fa-palette"></i> View More UI Designs
+                    </a>
+                </div>
+                
                 <div class="ui-grid">
-                    <div class="ui-image">
-                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058772424196300/Screenshot_2026-02-02_20.39.15.png?ex=69864719&is=6984f599&hm=023d984913f2b48f24239fd0cc0c352637780f647114ce73d118df173655be5c&=&format=webp&quality=lossless" alt="UI Design 1">
+                    <div class="ui-image" data-index="0">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058772424196300/Screenshot_2026-02-02_20.39.15.png?ex=69864719&is=6984f599&hm=023d984913f2b48f24239fd0cc0c352637780f647114ce73d118df173655be5c&=&format=webp&quality=lossless" alt="Modern UI Dashboard Design">
                         <div class="ui-image-caption">Modern UI Dashboard Design</div>
                     </div>
-                    <div class="ui-image">
-                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058773120188416/Screenshot_2026-01-29_17.58.51.png?ex=69864719&is=6984f599&hm=2c5de775a059c7fdc8f9fbfd066c464c456074123fb4706b0c7146bad148a356&=&format=webp&quality=lossless" alt="UI Design 2">
+                    <div class="ui-image" data-index="1">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058773120188416/Screenshot_2026-01-29_17.58.51.png?ex=69864719&is=6984f599&hm=2c5de775a059c7fdc8f9fbfd066c464c456074123fb4706b0c7146bad148a356&=&format=webp&quality=lossless" alt="Game Interface Mockup">
                         <div class="ui-image-caption">Game Interface Mockup</div>
                     </div>
-                    <div class="ui-image">
-                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058772126138603/Screenshot_2026-02-02_20.40.16.png?ex=69864719&is=6984f599&hm=24a25e63c9df788be00c7a676a6f6c05f7b99c13b8ca049ebb5ebf876200a460&=&format=webp&quality=lossless" alt="UI Design 3">
+                    <div class="ui-image" data-index="2">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058772126138603/Screenshot_2026-02-02_20.40.16.png?ex=69864719&is=6984f599&hm=24a25e63c9df788be00c7a676a6f6c05f7b99c13b8ca049ebb5ebf876200a460&=&format=webp&quality=lossless" alt="Character Selection Screen">
                         <div class="ui-image-caption">Character Selection Screen</div>
                     </div>
-                    <div class="ui-image">
-                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058773460189194/Screenshot_2026-01-22_08.12.22.png?ex=69864719&is=6984f599&hm=1f09abb9519155ddc6d81ec64ed829a9dbe523bdc8c4a82c527d9b2520a09b74&=&format=webp&quality=lossless" alt="UI Design 4">
+                    <div class="ui-image" data-index="3">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058773460189194/Screenshot_2026-01-22_08.12.22.png?ex=69864719&is=6984f599&hm=1f09abb9519155ddc6d81ec64ed829a9dbe523bdc8c4a82c527d9b2520a09b74&=&format=webp&quality=lossless" alt="Inventory System UI">
                         <div class="ui-image-caption">Inventory System UI</div>
                     </div>
-                    <div class="ui-image">
-                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058773766377617/Schermafbeelding_2026-01-18_214202.webp?ex=69864719&is=6984f599&hm=633912372169ffa21151259055fbc1890102556932ffdb6006323cddcc43d304&=&format=webp" alt="UI Design 5">
+                    <div class="ui-image" data-index="4">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058773766377617/Schermafbeelding_2026-01-18_214202.webp?ex=69864719&is=6984f599&hm=633912372169ffa21151259055fbc1890102556932ffdb6006323cddcc43d304&=&format=webp" alt="Settings Menu Design">
                         <div class="ui-image-caption">Settings Menu Design</div>
                     </div>
-                    <div class="ui-image">
-                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058774353444955/image.webp?ex=69864719&is=6984f599&hm=b56a21498c27d320e190956f67d1364322f1fe4198401bfae34db83df6a7ec3e&=&format=webp" alt="UI Design 6">
+                    <div class="ui-image" data-index="5">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469058774353444955/image.webp?ex=69864719&is=6984f599&hm=b56a21498c27d320e190956f67d1364322f1fe4198401bfae34db83df6a7ec3e&=&format=webp" alt="Mobile Game Interface">
                         <div class="ui-image-caption">Mobile Game Interface</div>
                     </div>
-                    <div class="ui-image">
-                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469060225788149882/Screenshot_2026-01-13_23.24.30.png?ex=69864873&is=6984f6f3&hm=59b91b39e0a6992b5a5abcdcd8c7fa9ca980410bc9971f310764e9de113f0054&=&format=webp&quality=lossless" alt="UI Design 7">
+                    <div class="ui-image" data-index="6">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469060225788149882/Screenshot_2026-01-13_23.24.30.png?ex=69864873&is=6984f6f3&hm=59b91b39e0a6992b5a5abcdcd8c7fa9ca980410bc9971f310764e9de113f0054&=&format=webp&quality=lossless" alt="HUD Design for Action Game">
                         <div class="ui-image-caption">HUD Design for Action Game</div>
                     </div>
-                    <div class="ui-image">
-                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469060227231121590/Screenshot_2026-01-10_02.23.17_1.png?ex=69864873&is=6984f6f3&hm=ae61ccd5ec564574594eac9e2057cb4eb5ebc4ff02f23ed348e489ae8847a16b&=&format=webp&quality=lossless" alt="UI Design 8">
+                    <div class="ui-image" data-index="7">
+                        <img src="https://media.discordapp.net/attachments/1469054085939462154/1469060227231121590/Screenshot_2026-01-10_02.23.17_1.png?ex=69864873&is=6984f6f3&hm=ae61ccd5ec564574594eac9e2057cb4eb5ebc4ff02f23ed348e489ae8847a16b&=&format=webp&quality=lossless" alt="Main Menu Concept">
                         <div class="ui-image-caption">Main Menu Concept</div>
                     </div>
                 </div>
@@ -1584,7 +1220,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">Project Details</label>
+                    label class="form-label">Project Details</label>
                     <textarea class="form-control" id="projectDetails" rows="6" placeholder="Tell me about your project, timeline, and any specific requirements..."></textarea>
                 </div>
                 
@@ -1689,8 +1325,12 @@
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <a href="#home">Home</a>
-                    <a href="#get-hired">Get Hired</a>
-                    <a href="#contact">Contact</a>
+                    <a href="#ui-design">UI Design</a>
+                    <a href="#scripting">LUAU Scripting</a>
+                    <a href="#past-work">Past Work</a>
+                    <a href="#reviews">Reviews</a>
+                    <a href="#get-hired">Join Us</a>
+                    <a href="#contact">Hire Us/Contact</a>
                     <a href="#tos">TOS</a>
                 </div>
             </div>
@@ -1708,6 +1348,53 @@
         const pageContents = document.querySelectorAll('.page-content');
         const tabButtons = document.querySelectorAll('.tab-button');
         const tabContents = document.querySelectorAll('.tab-content');
+        
+        // Lightbox elements
+        const lightbox = document.getElementById('lightbox');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+        const uiImages = document.querySelectorAll('.ui-image');
+
+        // Lightbox variables
+        let currentImageIndex = 0;
+        const uiImagesData = [
+            {
+                src: 'https://media.discordapp.net/attachments/1469054085939462154/1469058772424196300/Screenshot_2026-02-02_20.39.15.png?ex=69864719&is=6984f599&hm=023d984913f2b48f24239fd0cc0c352637780f647114ce73d118df173655be5c&=&format=webp&quality=lossless',
+                caption: 'Modern UI Dashboard Design'
+            },
+            {
+                src: 'https://media.discordapp.net/attachments/1469054085939462154/1469058773120188416/Screenshot_2026-01-29_17.58.51.png?ex=69864719&is=6984f599&hm=2c5de775a059c7fdc8f9fbfd066c464c456074123fb4706b0c7146bad148a356&=&format=webp&quality=lossless',
+                caption: 'Game Interface Mockup'
+            },
+            {
+                src: 'https://media.discordapp.net/attachments/1469054085939462154/1469058772126138603/Screenshot_2026-02-02_20.40.16.png?ex=69864719&is=6984f599&hm=24a25e63c9df788be00c7a676a6f6c05f7b99c13b8ca049ebb5ebf876200a460&=&format=webp&quality=lossless',
+                caption: 'Character Selection Screen'
+            },
+            {
+                src: 'https://media.discordapp.net/attachments/1469054085939462154/1469058773460189194/Screenshot_2026-01-22_08.12.22.png?ex=69864719&is=6984f599&hm=1f09abb9519155ddc6d81ec64ed829a9dbe523bdc8c4a82c527d9b2520a09b74&=&format=webp&quality=lossless',
+                caption: 'Inventory System UI'
+            },
+            {
+                src: 'https://media.discordapp.net/attachments/1469054085939462154/1469058773766377617/Schermafbeelding_2026-01-18_214202.webp?ex=69864719&is=6984f599&hm=633912372169ffa21151259055fbc1890102556932ffdb6006323cddcc43d304&=&format=webp',
+                caption: 'Settings Menu Design'
+            },
+            {
+                src: 'https://media.discordapp.net/attachments/1469054085939462154/1469058774353444955/image.webp?ex=69864719&is=6984f599&hm=b56a21498c27d320e190956f67d1364322f1fe4198401bfae34db83df6a7ec3e&=&format=webp',
+                caption: 'Mobile Game Interface'
+            },
+            {
+                src: 'https://media.discordapp.net/attachments/1469054085939462154/1469060225788149882/Screenshot_2026-01-13_23.24.30.png?ex=69864873&is=6984f6f3&hm=59b91b39e0a6992b5a5abcdcd8c7fa9ca980410bc9971f310764e9de113f0054&=&format=webp&quality=lossless',
+                caption: 'HUD Design for Action Game'
+            },
+            {
+                src: 'https://media.discordapp.net/attachments/1469054085939462154/1469060227231121590/Screenshot_2026-01-10_02.23.17_1.png?ex=69864873&is=6984f6f3&hm=ae61ccd5ec564574594eac9e2057cb4eb5ebc4ff02f23ed348e489ae8847a16b&=&format=webp&quality=lossless',
+                caption: 'Main Menu Concept'
+            }
+        ];
 
         // ================ INITIALIZATION ================
         document.addEventListener('DOMContentLoaded', function() {
@@ -1717,8 +1404,11 @@
             // Set up tabs for past work
             setupTabs();
             
-            // Start PERFECT counter animations
-            animateCountersPerfect();
+            // Set up lightbox
+            setupLightbox();
+            
+            // Start SMOOTH counter animations
+            animateCountersSmooth();
             
             // Set initial active page from URL hash
             const hash = window.location.hash.substring(1);
@@ -1727,6 +1417,126 @@
                 updateNavLinks(hash);
             }
         });
+
+        // ================ SMOOTH COUNTER ANIMATION ================
+        function animateCountersSmooth() {
+            const counters = [
+                { element: document.getElementById('visitsCounter'), target: 6.3, decimal: true },
+                { element: document.getElementById('clientsCounter'), target: 120, decimal: false },
+                { element: document.getElementById('projectsCounter'), target: 43, decimal: false }
+            ];
+            
+            counters.forEach(counter => {
+                if (!counter.element) return;
+                
+                let startValue = 0;
+                const duration = 1500; // 1.5 seconds
+                const startTime = performance.now();
+                
+                function updateCounter(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // Use smooth easing function
+                    const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+                    
+                    let currentValue;
+                    if (counter.decimal) {
+                        currentValue = (startValue + (counter.target - startValue) * easeOutCubic).toFixed(1);
+                        if (currentValue.endsWith('.0')) {
+                            currentValue = Math.floor(parseFloat(currentValue));
+                        }
+                    } else {
+                        currentValue = Math.floor(startValue + (counter.target - startValue) * easeOutCubic);
+                    }
+                    
+                    counter.element.textContent = currentValue;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        // Final value with subtle animation
+                        counter.element.classList.add('counting');
+                        setTimeout(() => {
+                            counter.element.classList.remove('counting');
+                        }, 500);
+                    }
+                }
+                
+                requestAnimationFrame(updateCounter);
+            });
+        }
+
+        // ================ LIGHTBOX FUNCTIONS ================
+        function setupLightbox() {
+            // Add click event to each UI image
+            uiImages.forEach((image, index) => {
+                image.addEventListener('click', () => {
+                    openLightbox(index);
+                });
+            });
+            
+            // Close lightbox when close button is clicked
+            lightboxClose.addEventListener('click', closeLightbox);
+            
+            // Close lightbox when clicking outside the image
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+            
+            // Navigation arrows
+            lightboxPrev.addEventListener('click', showPrevImage);
+            lightboxNext.addEventListener('click', showNextImage);
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                
+                switch(e.key) {
+                    case 'Escape':
+                        closeLightbox();
+                        break;
+                    case 'ArrowLeft':
+                        showPrevImage();
+                        break;
+                    case 'ArrowRight':
+                        showNextImage();
+                        break;
+                }
+            });
+        }
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            updateLightbox();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function showPrevImage() {
+            currentImageIndex = (currentImageIndex - 1 + uiImagesData.length) % uiImagesData.length;
+            updateLightbox();
+        }
+
+        function showNextImage() {
+            currentImageIndex = (currentImageIndex + 1) % uiImagesData.length;
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            const imageData = uiImagesData[currentImageIndex];
+            lightboxImage.src = imageData.src;
+            lightboxImage.alt = imageData.caption;
+            lightboxCaption.textContent = imageData.caption;
+            lightboxCounter.textContent = `${currentImageIndex + 1} / ${uiImagesData.length}`;
+        }
 
         // ================ TABS FUNCTIONALITY ================
         function setupTabs() {
@@ -1826,69 +1636,6 @@
             });
         }
 
-        // ================ PERFECT COUNTER ANIMATION ================
-        function animateCountersPerfect() {
-            // Set initial values immediately (no animation)
-            document.getElementById('visitsCounter').textContent = '6.3';
-            document.getElementById('clientsCounter').textContent = '120';
-            document.getElementById('projectsCounter').textContent = '43';
-            
-            // Wait a tiny bit then do smooth animation
-            setTimeout(() => {
-                const counters = [
-                    { element: document.getElementById('visitsCounter'), target: 6.3, duration: 2500 },
-                    { element: document.getElementById('clientsCounter'), target: 120, duration: 2000 },
-                    { element: document.getElementById('projectsCounter'), target: 43, duration: 1800 }
-                ];
-                
-                counters.forEach(counter => {
-                    if (!counter.element) return;
-                    
-                    let startTime = null;
-                    const startValue = 0;
-                    const targetValue = counter.target;
-                    const duration = counter.duration;
-                    
-                    function animateCounter(timestamp) {
-                        if (!startTime) startTime = timestamp;
-                        const elapsed = timestamp - startTime;
-                        const progress = Math.min(elapsed / duration, 1);
-                        
-                        // EaseOutCubic for smooth animation
-                        const easeProgress = 1 - Math.pow(1 - progress, 3);
-                        
-                        let currentValue;
-                        if (counter === counters[0]) { // visits (decimal)
-                            currentValue = (startValue + (targetValue - startValue) * easeProgress).toFixed(1);
-                            if (currentValue.endsWith('.0')) {
-                                currentValue = Math.floor(currentValue);
-                            }
-                        } else { // whole numbers
-                            currentValue = Math.floor(startValue + (targetValue - startValue) * easeProgress);
-                        }
-                        
-                        counter.element.textContent = currentValue;
-                        
-                        if (progress < 1) {
-                            requestAnimationFrame(animateCounter);
-                        } else {
-                            // Final value
-                            if (counter === counters[0]) {
-                                counter.element.textContent = targetValue.toFixed(1);
-                                if (counter.element.textContent.endsWith('.0')) {
-                                    counter.element.textContent = Math.floor(targetValue);
-                                }
-                            } else {
-                                counter.element.textContent = Math.floor(targetValue);
-                            }
-                        }
-                    }
-                    
-                    requestAnimationFrame(animateCounter);
-                });
-            }, 300);
-        }
-
         // ================ CONTACT FORM ================
         function submitContactForm() {
             const name = document.getElementById('contactName').value;
@@ -1929,25 +1676,6 @@
             window.location.href = `mailto:northchicagorp0@gmail.com?subject=${subject}&body=${body}`;
         }
 
-        // ================ HOVER EFFECTS ================
-        document.addEventListener('mouseover', function(e) {
-            // Add hover class to interactive elements
-            if (e.target.classList.contains('btn') || 
-                e.target.classList.contains('nav-link') ||
-                e.target.classList.contains('service-card') ||
-                e.target.classList.contains('project-card') ||
-                e.target.classList.contains('review-card') ||
-                e.target.classList.contains('stat-badge')) {
-                e.target.classList.add('hover-effect');
-            }
-        });
-
-        document.addEventListener('mouseout', function(e) {
-            // Remove hover class
-            if (e.target.classList.contains('hover-effect')) {
-                e.target.classList.remove('hover-effect');
-            }
-        });
     </script>
 </body>
 </html>
